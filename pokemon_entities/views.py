@@ -63,7 +63,16 @@ def show_pokemon(request, pokemon_id):
     if needed_pokemon.previous_evolution:
         pokemon_on_page["previous_evolution"] = {"pokemon_id": needed_pokemon.previous_evolution.id,
                                                  "img_url": needed_pokemon.previous_evolution.image.url,
-                                                 "title_ru": needed_pokemon.previous_evolution.title}
+                                                 "title_ru": needed_pokemon.previous_evolution.title
+                                                }
+    try:    
+        next_evolution = needed_pokemon.next_evolution.get()
+        pokemon_on_page['next_evolution'] = {"pokemon_id": next_evolution.id,
+                                            "img_url": next_evolution.image.url,
+                                            "title_ru": next_evolution.title
+                                            }
+    except Pokemon.DoesNotExist:
+        pass
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     map_pokemons = PokemonEntity.objects.filter(pokemon=pokemon_id)
     for pokemon_entity in map_pokemons:
