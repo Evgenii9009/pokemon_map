@@ -30,6 +30,8 @@ def add_pokemon(folium_map, lat, lon, image_url=DEFAULT_IMAGE_URL):
 def check_image(pokemon):
     if pokemon.image:
         return pokemon.image.url
+    else:
+        DEFAULT_IMAGE_URL
 
 def show_all_pokemons(request):
     now = localtime()
